@@ -1,4 +1,4 @@
-package com.danijelsudimac.orderapiservice;
+package com.danijelsudimac.order.api.service.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

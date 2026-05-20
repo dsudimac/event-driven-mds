@@ -1,8 +1,8 @@
-package com.danijelsudimac.orderapiservice.controller;
+package com.danijelsudimac.order.api.service.app.controller;
 
-import com.danijelsudimac.orderapiservice.mapper.OrderMapper;
-import com.danijelsudimac.orderapiservice.model.CreateOrderRequest;
-import com.danijelsudimac.orderapiservice.service.OrderPublisher;
+import com.danijelsudimac.order.api.service.app.mapper.OrderMapper;
+import com.danijelsudimac.order.api.service.app.model.CreateOrderRequest;
+import com.danijelsudimac.order.api.service.app.service.OrderPublisher;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;

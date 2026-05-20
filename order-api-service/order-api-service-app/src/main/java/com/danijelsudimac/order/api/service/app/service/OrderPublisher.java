@@ -1,6 +1,6 @@
-package com.danijelsudimac.orderapiservice.service;
+package com.danijelsudimac.order.api.service.app.service;
 
-import com.danijelsudimac.orderapiservice.model.CreateOrderEvent;
+import com.danijelsudimac.order.api.service.model.CreateOrderEvent;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.MDC;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 
-import static com.danijelsudimac.orderapiservice.configuration.KafkaConfiguration.TOPIC;
-import static com.danijelsudimac.orderapiservice.controller.OrderController.TRACE_ID_KEY;
+import static com.danijelsudimac.order.api.service.app.configuration.KafkaConfiguration.TOPIC;
+import static com.danijelsudimac.order.api.service.app.controller.OrderController.TRACE_ID_KEY;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class OrderPublisher {
 
         var traceId = MDC.get(TRACE_ID_KEY);
         ProducerRecord<String, CreateOrderEvent> record =
-                new ProducerRecord<>(TOPIC, event.getOrderId(), event);
+                new ProducerRecord<>(TOPIC, event.orderId(), event);
 
         if (traceId != null) {
             record.headers().add(

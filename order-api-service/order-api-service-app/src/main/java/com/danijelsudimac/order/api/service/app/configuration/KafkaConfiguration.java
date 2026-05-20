@@ -1,4 +1,4 @@
-package com.danijelsudimac.orderapiservice.configuration;
+package com.danijelsudimac.order.api.service.app.configuration;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.danijelsudimac.orderapiservice.model;
+package com.danijelsudimac.order.api.service.app.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

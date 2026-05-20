@@ -6,17 +6,16 @@ spring:
       group-id: inventory-group
 
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
       auto-offset-reset: earliest
       enable-auto-commit: false
 
-      properties:
-        specific.avro.reader: true
+      spring.json.trusted.packages: com.danijelsudimac.order
 
     listener:
       missing-topics-fatal: false
       ack-mode: manual_immediate
       concurrency: 1
 
-      bootstrap-servers: kafka:9092
+      bootstrap-servers: kafka:29092

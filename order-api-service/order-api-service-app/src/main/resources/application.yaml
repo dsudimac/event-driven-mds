@@ -4,7 +4,7 @@ spring:
   kafka:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       acks: all
       retries: 10
       properties:
@@ -21,7 +21,7 @@ spring:
 
         max.block.ms: 3000
 
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: kafka:29092
 
     admin:
       auto-create: true

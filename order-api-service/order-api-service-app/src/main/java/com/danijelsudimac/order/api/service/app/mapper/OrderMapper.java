@@ -1,7 +1,7 @@
-package com.danijelsudimac.orderapiservice.mapper;
+package com.danijelsudimac.order.api.service.app.mapper;
 
-import com.danijelsudimac.orderapiservice.model.CreateOrderEvent;
-import com.danijelsudimac.orderapiservice.model.CreateOrderRequest;
+import com.danijelsudimac.order.api.service.app.model.CreateOrderRequest;
+import com.danijelsudimac.order.api.service.model.CreateOrderEvent;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

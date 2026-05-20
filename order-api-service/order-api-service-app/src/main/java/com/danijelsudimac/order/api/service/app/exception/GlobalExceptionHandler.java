@@ -1,7 +1,7 @@
-package com.danijelsudimac.orderapiservice.exception;
+package com.danijelsudimac.order.api.service.app.exception;
 
-import com.danijelsudimac.orderapiservice.exception.model.ErrorResponse;
-import com.danijelsudimac.orderapiservice.exception.model.FieldError;
+import com.danijelsudimac.order.api.service.app.exception.model.ErrorResponse;
+import com.danijelsudimac.order.api.service.app.exception.model.FieldError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

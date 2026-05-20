@@ -2,7 +2,7 @@ package com.danijelsudimac.inventory_processing_service.service;
 
 import com.danijelsudimac.inventory_processing_service.mapper.EventMapper;
 import com.danijelsudimac.inventory_processing_service.repository.OrderStore;
-import com.danijelsudimac.orderapiservice.model.CreateOrderEvent;
+import com.danijelsudimac.order.api.service.model.CreateOrderEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -33,7 +33,6 @@ public class EventConsumer {
     private final EventMapper eventMapper;
 
     @RetryableTopic(
-            attempts = "3",
             backOff = @BackOff(delay = 1000, multiplier = 2.0),
             dltStrategy = DltStrategy.FAIL_ON_ERROR
     )
@@ -54,7 +53,7 @@ public class EventConsumer {
 
     @KafkaListener(topics = DLT_TOPIC)
     public void handleDlt(ConsumerRecord<String, CreateOrderEvent> consumerRecord) {
-        handleTraceId(consumerRecord, record -> log.error(DLT_MESSAGE, record.value().getOrderId()));
+        handleTraceId(consumerRecord, record -> log.error(DLT_MESSAGE, record.value().orderId()));
     }
 
     private void handleTraceId(ConsumerRecord<String, CreateOrderEvent> record,

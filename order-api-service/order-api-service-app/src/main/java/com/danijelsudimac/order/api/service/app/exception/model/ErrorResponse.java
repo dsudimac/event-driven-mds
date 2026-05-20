@@ -1,4 +1,4 @@
-package com.danijelsudimac.orderapiservice.exception.model;
+package com.danijelsudimac.order.api.service.app.exception.model;
 
 import java.time.Instant;
 import java.util.List;
