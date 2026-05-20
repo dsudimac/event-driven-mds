@@ -18,4 +18,4 @@ spring:
       ack-mode: manual_immediate
       concurrency: 1
 
-      bootstrap-servers: kafka:29092
+    bootstrap-servers: kafka:29092
