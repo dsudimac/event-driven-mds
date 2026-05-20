@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: order-api-service
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      retries: 10
+      properties:
+        enable.idempotence: true
+
+        linger.ms: 5
+        batch.size: 65536
+        compression.type: snappy
+
+        request.timeout.ms: 30000
+        delivery.timeout.ms: 60000
+        retry.backoff.ms: 500
+        max.in.flight.requests.per.connection: 5
+
+        max.block.ms: 3000
+
+    bootstrap-servers: kafka:9092
+
+    admin:
+      auto-create: true

@@ -1,0 +1,12 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.danijelsudimac</groupId>
+	<artifactId>monorepo</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>order-api-service/order-api-service-model</module>
+		<module>order-api-service/order-api-service-app</module>
+		<module>inventory-processing-service</module>
+	</modules>
+</project>

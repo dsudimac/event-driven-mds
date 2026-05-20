@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: inventory-processing-service
+  kafka:
+    consumer:
+      group-id: inventory-group
+
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+
+      properties:
+        specific.avro.reader: true
+
+    listener:
+      missing-topics-fatal: false
+      ack-mode: manual_immediate
+      concurrency: 1
+
+      bootstrap-servers: kafka:9092
