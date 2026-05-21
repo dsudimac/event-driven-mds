@@ -1,4 +1,4 @@
-package com.danijelsudimac.inventory_processing_service.model;
+package com.danijelsudimac.inventory.processing.service.model;
 
 /*
  * This record represents an order entity that will be stored in the database.

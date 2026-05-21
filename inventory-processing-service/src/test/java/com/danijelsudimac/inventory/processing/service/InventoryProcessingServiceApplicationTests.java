@@ -1,4 +1,4 @@
-package com.danijelsudimac.inventory_processing_service;
+package com.danijelsudimac.inventory.processing.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

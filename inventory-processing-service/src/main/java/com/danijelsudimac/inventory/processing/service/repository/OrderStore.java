@@ -1,6 +1,6 @@
-package com.danijelsudimac.inventory_processing_service.repository;
+package com.danijelsudimac.inventory.processing.service.repository;
 
-import com.danijelsudimac.inventory_processing_service.model.Order;
+import com.danijelsudimac.inventory.processing.service.model.Order;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class OrderStore {
     private static final String OUT_OF_STOCK_MESSAGE = "No item with ID {} in stock or insufficient quantity";
     private static final String ERROR_PROCESSING_MESSAGE = "Error processing order {}: {}";
     private final Map<String, Long> stock = new ConcurrentHashMap<>();
-    private final Set<Long> processedOrders = ConcurrentHashMap.newKeySet();
+    private final Set<String> processedOrders = ConcurrentHashMap.newKeySet();
 
     @PostConstruct
     void init() {
@@ -31,13 +31,14 @@ public class OrderStore {
             return false;
         }
 
-        var available = stock.get(order.orderId());
+        var available = stock.get(order.itemId());
         if (available == null || available < order.quantity()) {
             log.error(OUT_OF_STOCK_MESSAGE, order.itemId());
             return false;
         }
 
-        stock.put(order.orderId(), available - order.quantity());
+        stock.put(order.itemId(), available - order.quantity());
+        processedOrders.add(order.orderId());
         return true;
     }
 }

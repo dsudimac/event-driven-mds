@@ -1,45 +1,39 @@
-package com.danijelsudimac.inventory_processing_service.service;
+package com.danijelsudimac.inventory.processing.service.service;
 
-import com.danijelsudimac.inventory_processing_service.mapper.EventMapper;
-import com.danijelsudimac.inventory_processing_service.repository.OrderStore;
+import com.danijelsudimac.inventory.processing.service.mapper.EventMapper;
+import com.danijelsudimac.inventory.processing.service.repository.OrderStore;
 import com.danijelsudimac.order.api.service.model.CreateOrderEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.MDC;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.RetryableTopic;
-import org.springframework.kafka.retrytopic.DltStrategy;
-import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
-import org.springframework.kafka.annotation.BackOff;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
+import static com.danijelsudimac.inventory.processing.service.configuration.KafkaConfiguration.TOPIC;
+import static com.danijelsudimac.inventory.processing.service.configuration.KafkaConfiguration.TOPIC_DLT;
+
+
 @Service
+@EnableKafka
 @Slf4j
 @RequiredArgsConstructor
 public class EventConsumer {
 
-    private static final String TOPIC = "inventory.orders.v1";
     public static final String TRACE_ID_KEY = "traceId";
     private static final String ORDER_RESERVED_MESSAGE = "Order {} reserved";
     private static final String ORDER_REJECTED_MESSAGE = "Order {} rejected";
-    private static final String DLT_SUFFIX = "-dlt";
-    private static final String DLT_TOPIC = TOPIC + DLT_SUFFIX;
     private static final String DLT_MESSAGE = "Order with id {} received at DTL";
 
     private final OrderStore orderStore;
     private final EventMapper eventMapper;
 
-    @RetryableTopic(
-            backOff = @BackOff(delay = 1000, multiplier = 2.0),
-            dltStrategy = DltStrategy.FAIL_ON_ERROR
-    )
     @KafkaListener(topics = TOPIC)
-    public void consume(ConsumerRecord<String, CreateOrderEvent> consumerRecord, Acknowledgment acknowledgment) {
+    public void consume(ConsumerRecord<String, CreateOrderEvent> consumerRecord) {
         handleTraceId(consumerRecord, this::processOrder);
-        acknowledgment.acknowledge();
     }
 
     private void processOrder(ConsumerRecord<String, CreateOrderEvent> record) {
@@ -51,7 +45,7 @@ public class EventConsumer {
         }
     }
 
-    @KafkaListener(topics = DLT_TOPIC)
+    @KafkaListener(topics = TOPIC_DLT)
     public void handleDlt(ConsumerRecord<String, CreateOrderEvent> consumerRecord) {
         handleTraceId(consumerRecord, record -> log.error(DLT_MESSAGE, record.value().orderId()));
     }

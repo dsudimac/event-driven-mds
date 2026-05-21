@@ -1,6 +1,6 @@
-package com.danijelsudimac.inventory_processing_service.mapper;
+package com.danijelsudimac.inventory.processing.service.mapper;
 
-import com.danijelsudimac.inventory_processing_service.model.Order;
+import com.danijelsudimac.inventory.processing.service.model.Order;
 import com.danijelsudimac.order.api.service.model.CreateOrderEvent;
 import org.mapstruct.Mapper;
 

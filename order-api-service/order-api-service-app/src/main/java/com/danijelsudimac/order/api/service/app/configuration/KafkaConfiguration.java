@@ -9,7 +9,8 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaConfiguration {
 
     public static final String TOPIC = "inventory.orders.v1";
-    private static final String DLT_SUFFIX = "-dlt";
+    public static final String TOPIC_INVALID_MESSAGES = "inventory.orders.invalid.v1-dlt";
+    private static final String TOPIC_DLT = TOPIC + "-dlt";
     @Bean
     public NewTopic orderTopic() {
         return TopicBuilder.name(TOPIC)
@@ -20,8 +21,16 @@ public class KafkaConfiguration {
 
     @Bean
     public NewTopic orderDlt() {
-        return TopicBuilder.name(TOPIC + DLT_SUFFIX)
-                .partitions(1)
+        return TopicBuilder.name(TOPIC_DLT)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic invalidMessagesDlt() {
+        return TopicBuilder.name(TOPIC_INVALID_MESSAGES)
+                .partitions(3)
                 .replicas(1)
                 .build();
     }
