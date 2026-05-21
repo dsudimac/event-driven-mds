@@ -19,10 +19,4 @@
 		<module>order-api-service-model</module>
 		<module>order-api-service-app</module>
 	</modules>
-	<repositories>
-		<repository>
-			<id>confluent</id>
-			<url>https://packages.confluent.io/maven/</url>
-		</repository>
-	</repositories>
 </project>

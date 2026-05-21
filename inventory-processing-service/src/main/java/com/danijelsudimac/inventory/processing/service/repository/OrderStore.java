@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class OrderStore {
 
-    private static final String IDEMPOTENCY_EXCEPTION_MESSAGE = "Order with ID %d has already been processed";
+    private static final String IDEMPOTENCY_EXCEPTION_MESSAGE = "Order with ID %s has already been processed";
     private static final String OUT_OF_STOCK_MESSAGE = "No item with ID {} in stock or insufficient quantity";
     private static final String ERROR_PROCESSING_MESSAGE = "Error processing order {}: {}";
     private final Map<String, Long> stock = new ConcurrentHashMap<>();
