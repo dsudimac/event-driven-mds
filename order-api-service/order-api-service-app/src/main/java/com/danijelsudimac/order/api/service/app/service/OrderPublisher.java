@@ -2,6 +2,7 @@ package com.danijelsudimac.order.api.service.app.service;
 
 import com.danijelsudimac.order.api.service.model.CreateOrderEvent;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.MDC;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,10 +15,11 @@ import static com.danijelsudimac.order.api.service.app.controller.OrderControlle
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderPublisher {
 
     private final KafkaTemplate<String, CreateOrderEvent> kafkaTemplate;
-
+    private static final String PUBLISHING_MESSAGE = "Kafka publish failed %s";
     public void publish(CreateOrderEvent event) {
 
         var traceId = MDC.get(TRACE_ID_KEY);
@@ -31,6 +33,10 @@ public class OrderPublisher {
             );
         }
 
-        kafkaTemplate.send(record);
+        kafkaTemplate.send(record).whenComplete((res, ex) -> {
+            if (ex != null) {
+                log.error(String.format(PUBLISHING_MESSAGE, record), ex);
+            }
+        });
     }
 }
